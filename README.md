@@ -74,8 +74,3 @@ Chrome 90+, Firefox 88+, Safari 14+, Edge 90+, Samsung Internet 14+
 
 ---
 
-## 📝 Submission
-
-Exclude `node_modules/` and `dist/` before zipping. Name zip as your student registration number.
-
-*SENG 41293 – Mobile Web Application Development, University of Kelaniya*
