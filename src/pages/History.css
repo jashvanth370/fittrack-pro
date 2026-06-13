@@ -1,0 +1,103 @@
+.hist-summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.6rem;
+  margin: 1rem 0 0.75rem;
+}
+
+.hist-sum-card {
+  background: var(--card);
+  border: 1.5px solid var(--border);
+  border-radius: 16px;
+  padding: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  text-align: center;
+}
+
+.hist-sum-icon { font-size: 1.2rem; }
+
+.hist-sum-val {
+  font-family: 'Syne', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 800;
+  line-height: 1.1;
+}
+.hist-sum-val.green  { color: var(--accent); }
+.hist-sum-val.pink   { color: var(--accent3); }
+.hist-sum-val.purple { color: var(--accent2); }
+.hist-sum-val.orange { color: var(--accent4); }
+
+.hist-sum-lbl {
+  font-size: 0.72rem;
+  color: var(--text3);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Tabs */
+.hist-tabs {
+  display: flex;
+  gap: 0.5rem;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 4px;
+  margin-bottom: 0.75rem;
+}
+
+.hist-tab {
+  flex: 1;
+  height: 44px;
+  border: none;
+  border-radius: 10px;
+  background: transparent;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.hist-tab.active {
+  background: var(--card2);
+  box-shadow: 0 0 0 1.5px var(--tc, var(--accent));
+}
+
+/* Chart */
+.chart-card { margin-bottom: 0.75rem; }
+.chart-wrap { height: 220px; margin-top: 0.75rem; }
+.chart-loading {
+  height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Recent workouts */
+.hist-wk-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.hist-wk-row:last-child { border-bottom: none; }
+
+.hist-wk-date {
+  font-size: 0.75rem;
+  color: var(--text3);
+  min-width: 80px;
+}
+
+.hist-wk-name {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text);
+  flex: 1;
+}
+
+/* ── Day 13 fix: chart readability in light mode ── */
+[data-theme="light"] .chart-card {
+  --chart-grid: rgba(0,0,0,0.06);
+}
