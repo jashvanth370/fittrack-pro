@@ -326,6 +326,10 @@ input[type="range"]::-webkit-slider-thumb:active { transform: scale(1.2); }
   #root { font-size: 14px; }
   .btn { font-size: 0.85rem; padding: 0 0.9rem; }
   .topbar-title { font-size: 1rem; }
+  .timer-display {
+    font-size: 1.8rem;
+    letter-spacing: 0.02em;
+  }
 }
 
 @media (min-width: 414px) {
