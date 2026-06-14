@@ -1,0 +1,95 @@
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  margin-top: 0.5rem;
+}
+
+/* Toggle switch */
+.toggle-btn {
+  width: 52px;
+  height: 28px;
+  border-radius: 99px;
+  background: var(--bg3);
+  border: 1.5px solid var(--border);
+  position: relative;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.25s;
+}
+.toggle-btn:has(.toggle-thumb.right) {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.toggle-thumb {
+  position: absolute;
+  top: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: #fff;
+  transition: left 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+}
+.toggle-thumb.left  { left: 2px; }
+.toggle-thumb.right { left: 26px; }
+
+/* About */
+.about-list { display: flex; flex-direction: column; gap: 0; margin-top: 0.5rem; }
+.about-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.88rem;
+  color: var(--text2);
+}
+.about-row:last-child { border-bottom: none; }
+.about-row span:first-child { font-weight: 500; }
+
+.toast {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.65rem 1.4rem;
+  border-radius: 99px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  z-index: 200;
+  animation: fadeUp 0.3s ease;
+  white-space: nowrap;
+}
+
+.toast-success {
+  background: var(--accent);
+  color: #000;
+}
+
+.toast-error {
+  background: var(--danger);
+  color: #fff;
+}
+
+/* @keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -10px);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+} */
+/* ── Day 13 fix: improve save button feedback ── */
+.save-feedback {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.82rem;
+  color: var(--accent);
+  font-weight: 600;
+  animation: fadeIn 0.3s ease;
+}
