@@ -59,25 +59,32 @@ const buildDayMap = (items, valueKey, days = 7) => {
 export default function History() {
   const [tab, setTab]     = useState('water');
   const [data, setData]   = useState({ water: [], calories: [], workouts: [] });
+  const [period, setPeriod] = useState(7);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const load = async () => {
-      const [water, calories, workouts] = await Promise.all([
-        getWaterHistory(7),
-        getCalorieHistory(7),
-        getWorkoutHistory(7),
-      ]);
-      setData({ water, calories, workouts });
-      setLoading(false);
-    };
-    load();
-  }, []);
+  const load = async () => {
+    setLoading(true);
 
-  const waterMap    = buildDayMap(data.water,    'amount');
-  const calMap      = buildDayMap(data.calories, 'calories');
-  const workoutMap  = buildDayMap(data.workouts, 'duration');
-  const burnedMap   = buildDayMap(data.workouts, 'caloriesBurned');
+    const [water, calories, workouts] = await Promise.all([
+      period === 'all' ? getWaterHistory() : getWaterHistory(period),
+      period === 'all' ? getCalorieHistory() : getCalorieHistory(period),
+      period === 'all' ? getWorkoutHistory() : getWorkoutHistory(period),
+    ]);
+
+    setData({ water, calories, workouts });
+    setLoading(false);
+  };
+
+  load();
+}, [period]);
+
+  const chartDays = period === 'all' ? 30 : period;
+
+const waterMap = buildDayMap(data.water, 'amount', chartDays);
+const calMap = buildDayMap(data.calories, 'calories', chartDays);
+const workoutMap = buildDayMap(data.workouts, 'duration', chartDays);
+const burnedMap = buildDayMap(data.workouts, 'caloriesBurned', chartDays);
 
   const makeDataset = (values, color, fillColor) => ({
     data: values,
@@ -138,6 +145,24 @@ export default function History() {
   return (
     <div className="page">
       <TopBar title="History" subtitle="Last 7 days 📊" />
+      <div className="history-range">
+  {[7, 30, 90].map((d) => (
+    <button
+      key={d}
+      className={`history-range-btn ${period === d ? 'active' : ''}`}
+      onClick={() => setPeriod(d)}
+    >
+      {d}D
+    </button>
+  ))}
+
+  <button
+    className={`history-range-btn ${period === 'all' ? 'active' : ''}`}
+    onClick={() => setPeriod('all')}
+  >
+    All
+  </button>
+</div>
 
       {/* Summary cards */}
       <div className="hist-summary anim-fade-up">

@@ -101,3 +101,31 @@
 [data-theme="light"] .chart-card {
   --chart-grid: rgba(0,0,0,0.06);
 }
+.history-range {
+  display: flex;
+  gap: 0.5rem;
+  margin: 1rem 0 0.75rem;
+}
+
+.history-range-btn {
+  flex: 1;
+  height: 40px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card);
+  color: var(--text2);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.history-range-btn.active {
+  background: var(--accent);
+  color: #000;
+  border-color: var(--accent);
+}
+
+.history-range-btn:hover {
+  transform: translateY(-1px);
+}
