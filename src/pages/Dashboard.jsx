@@ -8,7 +8,7 @@ import './Dashboard.css';
 
 export default function Dashboard() {
   const { goals, profile, isOnline } = useApp();
-  const [todayData, setTodayData] = useState({ water: 0, calories: 0, workouts: 0 });
+  const [todayData, setTodayData] = useState({ water: 0, calories: 0, workouts: 0, workoutCalories: 0 });
   const [tips, setTips] = useState([]);
   const [tipsLoading, setTipsLoading] = useState(false);
   const [tipsError, setTipsError] = useState(null);
@@ -20,11 +20,17 @@ export default function Dashboard() {
         getCaloriesByDate(today()),
         getWorkoutsByDate(today()),
       ]);
+
       setTodayData({
-        water:    water.reduce((s, r) => s + r.amount, 0),
+        water: water.reduce((s, r) => s + r.amount, 0),
         calories: cals.reduce((s, r) => s + r.calories, 0),
         workouts: works.length,
+        workoutCalories: works.reduce(
+          (sum, workout) => sum + workout.caloriesBurned,
+          0
+        ),
       });
+      console.log(works);
     };
     loadData();
   }, []);
@@ -46,10 +52,10 @@ export default function Dashboard() {
     if (isOnline) loadTips();
   }, [isOnline]);
 
-  const waterPct   = Math.round((todayData.water / goals.water) * 100);
-  const calPct     = Math.round((todayData.calories / goals.calories) * 100);
-  const greetHour  = new Date().getHours();
-  const greeting   = greetHour < 12 ? 'Good morning' : greetHour < 17 ? 'Good afternoon' : 'Good evening';
+  const waterPct = Math.round((todayData.water / goals.water) * 100);
+  const calPct = Math.round((todayData.calories / goals.calories) * 100);
+  const greetHour = new Date().getHours();
+  const greeting = greetHour < 12 ? 'Good morning' : greetHour < 17 ? 'Good afternoon' : 'Good evening';
 
   return (
     <div className="page dash-page">
@@ -64,13 +70,13 @@ export default function Dashboard() {
           <div>
             <p className="ring-val">{(todayData.water / 1000).toFixed(1)}L</p>
             <p className="ring-lbl">Water</p>
-            <span className="badge badge-green">Goal {(goals.water/1000).toFixed(1)}L</span>
+            <span className="badge badge-green">Goal {(goals.water / 1000).toFixed(1)}L</span>
           </div>
         </div>
 
         <div className="ring-card card delay-2 anim-fade-up">
-          <CircularProgress value={Math.min(calPct,100)} size={90} color="var(--accent3)">
-            <span className="ring-pct">{Math.min(calPct,100)}%</span>
+          <CircularProgress value={Math.min(calPct, 100)} size={90} color="var(--accent3)">
+            <span className="ring-pct">{Math.min(calPct, 100)}%</span>
           </CircularProgress>
           <div>
             <p className="ring-val">{todayData.calories}</p>
@@ -82,12 +88,28 @@ export default function Dashboard() {
 
       {/* Workout summary */}
       <div className="card anim-fade-up delay-3" style={{ marginBottom: '0.75rem' }}>
-        <div className="flex-between">
-          <div>
+        <div className="workout-summary">
+          <div className="workout-stats">
             <p className="section-title">Today's Workouts</p>
-            <span className="num-big purple">{todayData.workouts}</span>
-            <span style={{ color: 'var(--text3)', fontSize: '0.85rem', marginLeft: '0.5rem' }}>sessions</span>
+
+            <div>
+              <span className="num-big purple">{todayData.workouts}</span>
+              <span
+                style={{
+                  color: 'var(--text3)',
+                  fontSize: '0.85rem',
+                  marginLeft: '0.5rem'
+                }}
+              >
+                sessions
+              </span>
+            </div>
+
+            <div className="burned-calories">
+              🔥 <span className="burned-value">{todayData.workoutCalories}</span> kcal burned
+            </div>
           </div>
+
           <div className="wk-icon">💪</div>
         </div>
       </div>
