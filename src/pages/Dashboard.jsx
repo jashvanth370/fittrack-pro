@@ -68,7 +68,7 @@ export default function Dashboard() {
             <span className="ring-pct">{Math.min(waterPct, 100)}%</span>
           </CircularProgress>
           <div>
-            <p className="ring-val">{(todayData.water / 1000).toFixed(1)}L</p>
+            <p className="ring-val">{(todayData.water / 1000).toFixed(2)}L</p>
             <p className="ring-lbl">Water</p>
             <span className="badge badge-green">Goal {(goals.water / 1000).toFixed(1)}L</span>
           </div>
