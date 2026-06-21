@@ -2,6 +2,8 @@ import { useApp } from '../../context/AppContext';
 import { Link } from 'react-router-dom';
 import './TopBar.css';
 
+const THEME_ICONS = { light: '☀️', dark: '🌙', system: '📱' };
+
 export default function TopBar({ title, subtitle }) {
   const { theme, toggleTheme, isOnline } = useApp();
 
@@ -13,8 +15,13 @@ export default function TopBar({ title, subtitle }) {
       </div>
       <div className="topbar-right">
         {!isOnline && <span className="dot-offline" title="Offline" />}
-        <button className="topbar-btn" onClick={toggleTheme} aria-label="Toggle theme">
-          {theme === 'dark' ? '☀️' : '🌙'}
+        <button
+          className="topbar-btn"
+          onClick={toggleTheme}
+          aria-label={`Theme: ${theme}`}
+          title={`Theme: ${theme}`}
+        >
+          {THEME_ICONS[theme]}
         </button>
         <Link to="/settings" className="topbar-btn" aria-label="Settings">⚙️</Link>
       </div>
