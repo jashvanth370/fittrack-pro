@@ -6,7 +6,7 @@ import { useApp } from '../context/AppContext';
 import './Settings.css';
 
 export default function Settings() {
-  const { goals, updateGoals, profile, updateProfile, theme, toggleTheme } = useApp();
+  const { goals, updateGoals, profile, updateProfile, theme, setThemeMode, resolvedTheme } = useApp();
   const navigate = useNavigate();
 
   const { register: rGoals, handleSubmit: hGoals, formState: { errors: eGoals } } = useForm({
@@ -58,17 +58,27 @@ export default function Settings() {
       {/* Theme */}
       <div className="card anim-fade-up" style={{ margin: '1rem 0 0.75rem' }}>
         <p className="section-title">Appearance</p>
-        <div className="flex-between">
-          <div>
-            <p style={{ fontWeight: 600 }}>Dark Mode</p>
-            <p style={{ fontSize: '0.82rem', color: 'var(--text3)' }}>
-              {theme === 'dark' ? 'Currently dark theme' : 'Currently light theme'}
-            </p>
-          </div>
-          <button className="toggle-btn" onClick={toggleTheme} aria-label="Toggle theme">
-            <span className={`toggle-thumb ${theme === 'dark' ? 'right' : 'left'}`} />
-          </button>
+        <div className="theme-options">
+          {['light', 'dark', 'system'].map((mode) => (
+            <button
+              key={mode}
+              className={`theme-option ${theme === mode ? 'active' : ''}`}
+              onClick={() => setThemeMode(mode)}
+            >
+              <span className="theme-icon">
+                {mode === 'light' ? '☀️' : mode === 'dark' ? '🌙' : '📱'}
+              </span>
+              <span className="theme-label">
+                {mode === 'light' ? 'Light' : mode === 'dark' ? 'Dark' : 'System'}
+              </span>
+            </button>
+          ))}
         </div>
+        {theme === 'system' && (
+          <p style={{ fontSize: '0.78rem', color: 'var(--text3)', marginTop: '0.6rem' }}>
+            Currently showing {resolvedTheme} mode, matching your phone's setting
+          </p>
+        )}
       </div>
 
       {/* Goals */}

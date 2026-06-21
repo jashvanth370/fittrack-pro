@@ -10,8 +10,17 @@ const DEFAULT_GOALS = {
   workouts: 3,       // per week
 };
 
-export const getTheme = () => localStorage.getItem(KEYS.THEME) || 'dark';
+export const getTheme = () => localStorage.getItem(KEYS.THEME) || 'system';
 export const setTheme = (t) => localStorage.setItem(KEYS.THEME, t);
+
+export const resolveTheme = (theme) => {
+  if (theme === 'system') {
+    return window.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light';
+  }
+  return theme;
+};
 
 export const getGoals = () => {
   try {
