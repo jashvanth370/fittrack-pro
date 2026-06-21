@@ -43,6 +43,18 @@
   --glow2:        rgba(93,79,212,0.1);
 }
 
+:root {
+  color-scheme: dark light;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
 /* ── Reset & Base ──────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
